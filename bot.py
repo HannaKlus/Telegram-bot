@@ -55,7 +55,7 @@ def korona(bot, update):
 		bot.send_photo(chat_id=chat_id, photo=url)
 		bot.send_message(chat_id=chat_id, text="Haf " + name)
 	except Error as e:
-		print("An exception occurred", e)
+		print("An exception occurredddd", e)
 
 
 def main():
