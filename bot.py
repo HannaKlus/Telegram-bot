@@ -43,6 +43,18 @@ def zara(bot, update):
     bot.send_photo(chat_id=chat_id, photo=url)
     bot.send_message(chat_id=chat_id, text="Haf " + name)
 
+def testy(bot, update):
+    try:
+        print("W testach")
+        contents = requests.get('https://onemocneni-aktualne.mzcr.cz/api/v1/covid-19/testy.min.json').json()
+        chat_id = update.message.chat_id
+        celkem=str(contents['data'][-1]['testy-celkem'])
+        den=str(contents['data'][-1]['testy-den'])
+        bot.send_message(chat_id=chat_id, text='Day: ' + den + ' total: ' + celkem)
+    except Exception as e:
+        print("An exception occurredddd", e)
+           
+
 def korona(bot, update):
     try:
         print("W koronie")
@@ -51,7 +63,7 @@ def korona(bot, update):
         celkem=str(contents[-1]['pocetCelkem'])
         den=str(contents[-1]['pocetDen'])
         bot.send_message(chat_id=chat_id, text='Day: ' + den + ' total: ' + celkem)
-    except Error as e:
+    except Exception as e:
         print("An exception occurredddd", e)
 
 
@@ -62,6 +74,7 @@ def main():
     dp.add_handler(CommandHandler('dejkota',cat))
     dp.add_handler(CommandHandler('dejzare',zara))
     dp.add_handler(CommandHandler('korona',korona))
+    dp.add_handler(CommandHandler('testy',testy))
     updater.start_polling()
     updater.idle()
     
